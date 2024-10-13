@@ -265,7 +265,6 @@
                     }
                 },
                 error: function(xhr) {
-                    // console.log(xhr.responseText);
                     alert('Terjadi kesalahan pada sistem!');
                 }
             });
