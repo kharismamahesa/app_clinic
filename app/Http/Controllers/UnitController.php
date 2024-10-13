@@ -55,7 +55,7 @@ class UnitController extends Controller
             'unit_name.unique' => 'Satuan sudah ada, masukkan Satuan lain',
             'initial.required' => 'Lengkapi Inisial terlebih dahulu',
             'initial.string' => 'Satuan harus berupa teks.',
-            'initial.max' => 'Satuan tidak boleh lebih dari 55 karakter.',
+            'initial.max' => 'Satuan tidak boleh lebih dari 5 karakter.',
             'initial.unique' => 'Inisial sudah ada, masukkan Inisial lain',
         ]);
 
@@ -91,7 +91,18 @@ class UnitController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        try {
+            $unit = Unit::findOrFail($id);
+            return response()->json([
+                'success' => true,
+                'data' => $unit
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Satuan tidak ditemukan!'
+            ], 404);
+        }
     }
 
     /**
@@ -99,7 +110,55 @@ class UnitController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        if (empty($id)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Terjadi kesalahan, ID kosong',
+            ]);
+        }
+        if (empty($request->unit_name)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lengkapi Satuan terlebih dahulu',
+            ]);
+        }
+        if (empty($request->initial)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Lengkapi inisial terlebih dahulu',
+            ]);
+        }
+        $validator = Validator::make($request->all(), [
+            'unit_name' => 'required|string|max:50|unique:units,unit_name,' . $id . ',unit_id',
+            'initial' => 'required|string|max:5|unique:units,initial,' . $id . ',unit_id',
+        ], [
+            'unit_name.required' => 'Lengkapi Satuan terlebih dahulu',
+            'unit_name.string' => 'Satuan harus berupa teks.',
+            'unit_name.max' => 'Satuan tidak boleh lebih dari 50 karakter.',
+            'unit_name.unique' => 'Satuan sudah ada, masukkan Satuan lain',
+            'initial.required' => 'Lengkapi Inisial terlebih dahulu',
+            'initial.string' => 'Satuan harus berupa teks.',
+            'initial.max' => 'Satuan tidak boleh lebih dari 5 karakter.',
+            'initial.unique' => 'Inisial sudah ada, masukkan Inisial lain',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => $validator->errors()->first(),
+            ]);
+        }
+
+        $unit = Unit::findOrFail($id);
+        $unit->unit_name = $request->unit_name;
+        $unit->initial = $request->initial;
+        $unit->desc = $request->desc;
+        $unit->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Satuan berhasil diperbarui! '
+        ]);
     }
 
     /**
