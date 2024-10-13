@@ -188,7 +188,6 @@
                             _token: csrfToken
                         },
                         success: function(response) {
-                            console.log(response);
                             if (response.success) {
                                 Swal.fire(
                                     'Terhapus!',
@@ -205,7 +204,6 @@
                             }
                         },
                         error: function(xhr) {
-                            console.log(xhr);
                             Swal.fire(
                                 'Error!',
                                 'Terjadi kesalahan pada server!',
