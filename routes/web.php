@@ -56,6 +56,7 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/unit/{id}', [UnitController::class, 'destroy'])->name('unit.destroy');
     Route::get('/unit/{id}/edit', [UnitController::class, 'edit'])->name('unit.edit');
     Route::put('/unit/{id}', [UnitController::class, 'update'])->name('unit.update');
+    Route::get('/units', [UnitController::class, 'getAllUnits'])->name('units.all');
 
     //golongan obat
     Route::get('/group', [GroupController::class, 'index']);
