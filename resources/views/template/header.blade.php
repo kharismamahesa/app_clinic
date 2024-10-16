@@ -13,6 +13,7 @@
     <link href="{{ url('/gentelella') }}/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ url('/gentelella') }}/vendors/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ url('/gentelella') }}/vendors/nprogress/nprogress.css" rel="stylesheet">
+    <link href="{{ url('/gentelella') }}/vendors/select2/dist/css/select2.css" rel="stylesheet">
     <link href="{{ url('/gentelella') }}/build/css/custom.min.css" rel="stylesheet">
     <link href="{{ url('/gentelella') }}/vendors/datatables.net-bs/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link href="{{ url('/gentelella') }}/vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css"
