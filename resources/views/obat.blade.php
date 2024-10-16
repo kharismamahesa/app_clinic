@@ -58,6 +58,24 @@
                         <input type="text" id="id" class="form-control">
                     </div>
                     <div class="form-group row">
+                        <label>Nama Obat</label>
+                        <input type="text" id="name" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-2 col-sm-12  form-group">
+                            <label>Stok</label>
+                            <input type="text" id="stock" class="form-control">
+                        </div>
+                        <div class="col-md-5 col-sm-12  form-group">
+                            <label>Harga Beli</label>
+                            <input type="text" id="price_buy" class="form-control">
+                        </div>
+                        <div class="col-md-5 col-sm-12  form-group">
+                            <label>Harga Jual</label>
+                            <input type="text" id="price_sell" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group row">
                         <label>Satuan Obat</label>
                         <select name="unit" id="unit" class="form-control" style="width: 100%;">
                             <option value="">Pilih Satuan Obat</option>
@@ -108,7 +126,7 @@
 
     function loadUnits() {
         $.ajax({
-            url: '/units', // URL untuk mendapatkan semua data unit
+            url: '/units',
             type: 'GET',
             success: function(response) {
                 if (response.status == 'success') {
