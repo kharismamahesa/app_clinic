@@ -4,7 +4,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Satuan Obat</h3>
+                <h3>Golongan Obat</h3>
             </div>
         </div>
 
@@ -19,8 +19,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Satuan Obat</th>
-                                <th>Inisial</th>
+                                <th>Golongan Obat</th>
                                 <th>Deskripsi</th>
                                 <th>#</th>
                             </tr>
@@ -53,12 +52,8 @@
                         <input type="text" id="id" class="form-control">
                     </div>
                     <div class="form-group row">
-                        <label>Satuan Obat</label>
-                        <input type="text" id="unit_name" class="form-control" placeholder="Satuan Obat">
-                    </div>
-                    <div class="form-group row">
-                        <label>Inisial</label>
-                        <input type="text" id="initial" class="form-control" placeholder="Inisial Obat">
+                        <label>Golongan Obat</label>
+                        <input type="text" id="group" class="form-control" placeholder="Golongan Obat">
                     </div>
                     <div class="form-group row">
                         <label>Deskripsi</label>
@@ -101,8 +96,7 @@
 <script type="text/javascript">
     function clearform() {
         $('#id').val('');
-        $('#unit_name').val('');
-        $('#initial').val('');
+        $('#group').val('');
         $('#desc').val('');
     }
 
@@ -111,7 +105,7 @@
         var table = $('#list_data').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('unit.data') }}",
+            ajax: "{{ route('group.data') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -119,12 +113,8 @@
                     searchable: false
                 },
                 {
-                    data: 'unit_name',
-                    name: 'unit_name'
-                },
-                {
-                    data: 'initial',
-                    name: 'initial'
+                    data: 'group',
+                    name: 'group'
                 },
                 {
                     data: 'desc',
@@ -148,16 +138,15 @@
             $('#myModalLabel').html('<i class="fa fa-edit"></i> Ubah Data');
             $('#btnsimpandata').hide();
             $('#btnubahdata').show();
-            var unitId = $(this).data('id');
+            var groupId = $(this).data('id');
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: "/unit/" + unitId + "/edit",
+                url: "/group/" + groupId + "/edit",
                 type: 'GET',
                 success: function(response) {
                     if (response.success) {
-                        $('#id').val(unitId);
-                        $('#unit_name').val(response.data.unit_name);
-                        $('#initial').val(response.data.initial);
+                        $('#id').val(groupId);
+                        $('#group').val(response.data.group);
                         $('#desc').val(response.data.desc);
                         $('#modalform').modal('show');
                     } else {
@@ -171,11 +160,11 @@
         });
 
         $('#list_data').on('click', '.delete-btn', function() {
-            var unitId = $(this).data('id');
+            var groupId = $(this).data('id');
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
             Swal.fire({
                 title: 'Apakah Anda yakin?',
-                text: "Satuan ini akan dihapus secara permanen!",
+                text: "Golongan ini akan dihapus secara permanen!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonText: 'Ya, hapus!',
@@ -183,7 +172,7 @@
             }).then((result) => {
                 if (result.isConfirmed) {
                     $.ajax({
-                        url: '/unit/' + unitId,
+                        url: '/group/' + groupId,
                         type: 'DELETE',
                         data: {
                             _token: csrfToken
@@ -229,17 +218,15 @@
         });
 
         $('#btnsimpandata').on('click', function() {
-            var unit_name = $('#unit_name').val();
-            var initial = $('#initial').val();
+            var group = $('#group').val();
             var desc = $('#desc').val();
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 type: "POST",
-                url: "{{ route('unit.store') }}",
+                url: "{{ route('group.store') }}",
                 dataType: "JSON",
                 data: {
-                    unit_name: unit_name,
-                    initial: initial,
+                    group: group,
                     desc: desc,
                     _token: csrf_token
                 },
@@ -264,23 +251,22 @@
                     }
                 },
                 error: function(xhr) {
+                    console.log(xhr);
                     alert('Terjadi kesalahan pada sistem!');
                 }
             });
         });
 
         $('#btnubahdata').on('click', function() {
-            var unit_id = $('#id').val();
-            var unit_name = $('#unit_name').val();
-            var initial = $('#initial').val();
+            var id = $('#id').val();
+            var group = $('#group').val();
             var desc = $('#desc').val();
             var csrf_token = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
-                url: "/unit/" + unit_id,
+                url: "/group/" + id,
                 type: 'PUT',
                 data: {
-                    unit_name: unit_name,
-                    initial: initial,
+                    group: group,
                     desc: desc,
                     _token: csrf_token,
                 },
@@ -305,6 +291,7 @@
                     }
                 },
                 error: function(xhr) {
+                    console.log(xhr);
                     alert('Terjadi kesalahan pada sistem!');
                 }
             });

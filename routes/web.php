@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\GroupController;
+use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\UnitController;
 use Illuminate\Support\Facades\Route;
@@ -54,4 +56,20 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/unit/{id}', [UnitController::class, 'destroy'])->name('unit.destroy');
     Route::get('/unit/{id}/edit', [UnitController::class, 'edit'])->name('unit.edit');
     Route::put('/unit/{id}', [UnitController::class, 'update'])->name('unit.update');
+
+    //golongan obat
+    Route::get('/group', [GroupController::class, 'index']);
+    Route::get('/group/data', [GroupController::class, 'getGroupsData'])->name('group.data');
+    Route::post('/group', [GroupController::class, 'store'])->name('group.store');
+    Route::delete('/group/{id}', [GroupController::class, 'destroy'])->name('group.destroy');
+    Route::get('/group/{id}/edit', [GroupController::class, 'edit'])->name('group.edit');
+    Route::put('/group/{id}', [GroupController::class, 'update'])->name('group.update');
+
+    //obat
+    Route::get('/obat', [MedicineController::class, 'index']);
+    Route::get('/obat/data', [MedicineController::class, 'getMedicinesData'])->name('obat.data');
+    // Route::post('/obat', [GroupController::class, 'store'])->name('group.store');
+    // Route::delete('/obat/{id}', [GroupController::class, 'destroy'])->name('group.destroy');
+    // Route::get('/obat/{id}/edit', [GroupController::class, 'edit'])->name('group.edit');
+    // Route::put('/obat/{id}', [GroupController::class, 'update'])->name('group.update');
 });

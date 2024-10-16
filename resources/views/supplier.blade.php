@@ -111,7 +111,7 @@
         var table = $('#list_data').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('supplier.data') }}',
+            ajax: "{{ route('supplier.data') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',

@@ -59,8 +59,9 @@
                                     <ul class="nav child_menu">
                                         <li><a href="{{ url('kategori') }}">Kategori Obat</a></li>
                                         <li><a href="{{ url('unit') }}">Satuan Obat</a></li>
+                                        <li><a href="{{ url('group') }}">Golongan Obat</a></li>
                                         <li><a href="{{ url('supplier') }}">Supplier</a></li>
-                                        <li><a href="#">Obat</a></li>
+                                        <li><a href="{{ url('obat') }}">Obat</a></li>
 
                                     </ul>
                                 </li>

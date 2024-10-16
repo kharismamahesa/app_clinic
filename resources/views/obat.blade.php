@@ -4,7 +4,7 @@
     <div class="">
         <div class="page-title">
             <div class="title_left">
-                <h3>Satuan Obat</h3>
+                <h3>Obat</h3>
             </div>
         </div>
 
@@ -19,9 +19,14 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Satuan Obat</th>
-                                <th>Inisial</th>
-                                <th>Deskripsi</th>
+                                <th>Nama Obat</th>
+                                <th>Stok</th>
+                                <th>Harga Beli</th>
+                                <th>Harga Jual</th>
+                                <th>Kategori</th>
+                                <th>Satuan</th>
+                                <th>Golongan</th>
+                                <th>Supplier</th>
                                 <th>#</th>
                             </tr>
                         </thead>
@@ -111,7 +116,7 @@
         var table = $('#list_data').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('unit.data') }}",
+            ajax: "{{ route('obat.data') }}",
             columns: [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex',
@@ -119,16 +124,36 @@
                     searchable: false
                 },
                 {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'stock',
+                    name: 'stock'
+                },
+                {
+                    data: 'price_buy',
+                    name: 'price_buy'
+                },
+                {
+                    data: 'price_sell',
+                    name: 'price_sell'
+                },
+                {
+                    data: 'category_name',
+                    name: 'category_name'
+                },
+                {
                     data: 'unit_name',
                     name: 'unit_name'
                 },
                 {
-                    data: 'initial',
-                    name: 'initial'
+                    data: 'group_name',
+                    name: 'group_name'
                 },
                 {
-                    data: 'desc',
-                    name: 'desc'
+                    data: 'supplier_name',
+                    name: 'supplier_name'
                 },
                 {
                     data: 'action',
