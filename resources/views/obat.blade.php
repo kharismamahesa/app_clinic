@@ -61,14 +61,6 @@
                         <label>Satuan Obat</label>
                         <input type="text" id="unit_name" class="form-control" placeholder="Satuan Obat">
                     </div>
-                    <div class="form-group row">
-                        <label>Inisial</label>
-                        <input type="text" id="initial" class="form-control" placeholder="Inisial Obat">
-                    </div>
-                    <div class="form-group row">
-                        <label>Deskripsi</label>
-                        <textarea id="desc" class="form-control" rows="4" placeholder="Deskripsi"></textarea>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer">
