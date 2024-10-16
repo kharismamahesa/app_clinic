@@ -195,4 +195,22 @@ class UnitController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function getAllUnits()
+    {
+        $units = Unit::all();
+
+        if ($units->count() > 0) {
+            return response()->json([
+                'status' => 'success',
+                'data' => $units,
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No units found!',
+                'data' => '',
+            ]);
+        }
+    }
 }
