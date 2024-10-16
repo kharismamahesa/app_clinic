@@ -59,7 +59,9 @@
                     </div>
                     <div class="form-group row">
                         <label>Satuan Obat</label>
-                        <input type="text" id="unit_name" class="form-control" placeholder="Satuan Obat">
+                        <select name="unit" id="unit" class="form-control" style="width: 100%;">
+                            <option value="">Pilih Satuan Obat</option>
+                        </select>
                     </div>
                 </form>
             </div>
@@ -93,6 +95,7 @@
 <script src="{{ url('/gentelella') }}/vendors/jszip/dist/jszip.min.js"></script>
 <script src="{{ url('/gentelella') }}/vendors/pdfmake/build/pdfmake.min.js"></script>
 <script src="{{ url('/gentelella') }}/vendors/pdfmake/build/vfs_fonts.js"></script>
+<script src="{{ url('/gentelella') }}/vendors/select2/dist/js/select2.full.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
@@ -103,8 +106,33 @@
         $('#desc').val('');
     }
 
+    function loadUnits() {
+        $.ajax({
+            url: '/units', // URL untuk mendapatkan semua data unit
+            type: 'GET',
+            success: function(response) {
+                if (response.status == 'success') {
+                    var options = '<option value="">Pilih Satuan Obat</option>';
+                    $.each(response.data, function(index, unit) {
+                        options += '<option value="' + unit.unit_id + '">' + unit.unit_name +
+                            '</option>';
+                    });
+                    $('#unit').html(options);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr) {
+                console.log(xhr.responseText);
+            }
+        });
+    }
+
     $(document).ready(function() {
+        $("#unit").select2();
+
         clearform();
+        loadUnits();
         var table = $('#list_data').DataTable({
             processing: true,
             serverSide: true,
